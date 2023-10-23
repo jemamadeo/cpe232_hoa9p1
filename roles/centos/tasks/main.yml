@@ -1,0 +1,20 @@
+---
+- name: Add Prometheus YUM repository and GPG key
+  yum_repository:
+    name: "prometheus"
+    description: "Prometheus RPM Repository"
+    baseurl: https://packagecloud.io/prometheus-rpm/release/el/7/$basearch
+    gpgcheck: yes
+    enabled: yes
+
+- name: Import Prometheus GPG key if not installed
+  command: rpm --import https://packagecloud.io/prometheus-rpm/release/gpgkey
+  args:
+    creates: /etc/pki/rpm-gpg/RPM-GPG-KEY-Packagecloud-Prometheus
+  when: ansible_distribution_major_version == "7"
+
+- name: Install Prometheus in CentOS
+  command: dnf install -y --nogpgcheck prometheus
+  when: ansible_distribution_major_version == "7"
+
+

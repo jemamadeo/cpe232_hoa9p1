@@ -1,0 +1,11 @@
+---
+- name: Install Prometheus
+  hosts: ubuntu,centos
+  become: yes
+
+  roles:
+    - role: ubuntu
+      when: ansible_distribution == "Ubuntu"
+    - role: centos
+      when: ansible_distribution == "CentOS"
+

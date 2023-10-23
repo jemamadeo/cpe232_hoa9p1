@@ -1,0 +1,7 @@
+---
+- name: Install Prometheus on Ubuntu
+  apt:
+    name: prometheus
+    state: present
+  tags: prometheus
+
